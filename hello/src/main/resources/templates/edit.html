@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form th:action="@{/edit}" method="post" th:object="${user}">
+<input type="hiddden" name="id" th:value="*{id}"><br>
+Name:<input type="text" name="userName" th:value=*{userName}/><br>
+password:<input type="password" name="password"  th:value=*{password}><br>
+Email:<input type="text" name="Email"  th:value=*{Email}/><br>
+age:<input type="text" name="age" th:value=*{age}/><br>
+<input type="submit" value="submit"> 
+</form>
+
+<div th:if="${errorMsg!=null}" th:text="${errorMsg}"></div>
+</body>
+</html>

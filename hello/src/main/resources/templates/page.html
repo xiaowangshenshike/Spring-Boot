@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/my.css}"></link>
+</head>
+<body>
+<div th:fragment="pager">
+<ul th:with="pageurl=${#httpServletRequest.getRequestURL().toString()}">
+
+<li><a th:text="首页" th:href="@{${pageurl}(page=${0})}"></a></li>
+
+
+<div th:if="${(users.totalPages le 10) and (users.totalPages gt 0)}">
+	<div th:each="pg:${#numbers.sequence(0,users.totalPages-1)}">
+		<span th:if="${pg eq users.getNumber()}">
+			<li><span th:text="${pg + 1}"></span></li>
+		</span>
+		
+		<span th:unless="${pg eq users.getNumber()}">
+			<li><a th:text="${pg + 1}" th:href="@{${pageurl}(page=${pg})}"></a></li>
+		</span>
+	</div>	
+</div>
+
+
+<div th:if="${users.totalPages gt 10}">
+<div th:if="${users.getNumber() lt 4}">
+    <div th:each="pg:${#numbers.sequence(0,9)}">
+		<span th:if="${pg eq users.getNumber()}">
+			<li><span th:text="${pg + 1}"></span></li>
+		</span>
+		
+		<span th:unless="${pg eq users.getNumber()}">
+			<li><a th:text="${pg + 1}" th:href="@{${pageurl}(page=${pg})}"></a></li>
+		</span>
+	</div>
+</div>
+
+<div th:if="${(users.getNumber() ge 4) and (users.getNumber() le users.totalPages-6)}">
+	<div th:each="pg:${#numbers.sequence(users.getNumber()-4,users.getNumber()+5)}">
+		<span th:if="${pg eq users.getNumber()}">
+			<li><span th:text="${pg + 1}"></span></li>
+		</span>
+		
+		<span th:unless="${pg eq users.getNumber()}">
+			<li><a th:text="${pg + 1}" th:href="@{${pageurl}(page=${pg})}"></a></li>
+		</span>
+	</div>	
+</div>
+<div th:if="${users.getNumber() gt users.totalPages-6}">
+    <div th:each="pg:${#numbers.sequence(users.getNumber()-10,users.totalPages-1)}">
+		<span th:if="${pg eq users.getNumber()}">
+			<li><span th:text="${pg + 1}"></span></li>
+		</span>
+		
+		<span th:unless="${pg eq users.getNumber()}">
+			<li><a th:text="${pg + 1}" th:href="@{${pageurl}(page=${pg})}"></a></li>
+		</span>
+	</div>
+</div>
+<li th:if="${users.getNumber() gt 0}"><a th:text="上一页" th:href="@{${pageurl}(page=${users.getNumber()-1})}"></a></li>
+<li th:unless="${users.getNumber() gt 0}"><a th:text="上一页" th:href="@{${pageurl}(page=0)}"></a></li>
+<li th:if="${users.getNumber() lt (users.totalPages-1)}"><a th:text="下一页" th:href="@{${pageurl}(page=${users.getNumber()+1})}"></a></li>
+<li><a th:text="尾页" th:href="@{${pageurl}(page=${users.totalPages-1})}"></a></li>
+</ul>
+</div>
+</body>
+</html>

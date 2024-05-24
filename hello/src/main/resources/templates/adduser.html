@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form th:action="@{/add}" method="post">
+
+Name:<input type="text" name="userName"/><br>
+password:<input type="password" name="password"><br>
+Email:<input type="text" name="Email"/><br>
+age:<input type="text" name="age"/><br>
+<input type="submit" value="submit"> 
+</form>
+
+<div th:if="${errorMsg!=null}" th:text="${errorMsg}"> </div>
+</body>
+</html>

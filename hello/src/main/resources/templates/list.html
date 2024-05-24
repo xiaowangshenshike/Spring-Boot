@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/my.css}"></link>
+</head>
+<body>
+<table>
+    <thead>
+        <tr>
+           <th>编号</th>
+           <th>用户名</th>
+           <th>密码</th>
+           <th>邮箱</th>
+           <th>年龄</th>
+           <th>编辑</th>
+           <th>删除</th>
+        </tr>
+    </thead>
+    <tr th:each="user:${users}">
+       <td th:text="${user.id}"></td>
+       <td th:text="${user.userName}"></td>
+       <td th:text="${user.password}"></td>
+       <td th:text="${user.Email}"></td>
+       <td th:text="${user.age}"></td>
+       <td><a th:href="@{/toEdit(id=${user.id})}">编辑</a></td>
+       <td><a th:href="@{/toDelete(id=${user.id})}" onclick="return confirm('是否删除')">删除</a></td>
+    </tr>
+</table>
+<td><a th:href="@{/add}">添加</a></td>
+<div th:include="page::pager"></div>
+
+</body>
+</html>
